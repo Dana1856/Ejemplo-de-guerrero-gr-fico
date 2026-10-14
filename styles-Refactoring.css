@@ -1,0 +1,524 @@
+:root {
+    --color-fondo: #0f172a;
+    --color-superficie: #1e293b;
+    --color-superficie-hover: #334155;
+    --color-borde: #475569;
+    --color-texto: #f8fafc;
+    --color-texto-muted: #94a3b8;
+    --color-primario: #3b82f6;
+    --color-primario-hover: #2563eb;
+    --color-peligro: #ef4444;
+    --color-peligro-hover: #dc2626;
+    --color-resaltado: #fbbf24;
+    --color-armadura: #64748b;
+    --color-armadura-oscura: #334155;
+    --borde-radio: 8px;
+    --fuente-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-base);
+    line-height: 1.5;
+    padding: 2rem 1rem;
+}
+
+.contenedor-principal {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* ============================================
+   ESCENARIO Y MUÑECO
+   ============================================ */
+
+.zona-escenario {
+    background-color: #0b1120;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--borde-radio);
+    overflow: hidden;
+    position: relative;
+}
+
+.indicador-entorno {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-texto-muted);
+}
+
+.escenario {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.suelo {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 35px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    border-top: 2px solid var(--color-borde);
+}
+
+.personaje-grafico {
+    position: absolute;
+    bottom: 35px;
+    left: 100px;
+    width: 60px;
+    height: 110px;
+    transform-origin: bottom center;
+    transition: left 0.25s ease-out;
+}
+
+/* Partes anatómicas del muñeco */
+.cabeza {
+    position: absolute;
+    top: 0;
+    left: 16px;
+    width: 28px;
+    height: 28px;
+    background-color: #f6d8ae;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.casco {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 32px;
+    height: 18px;
+    background-color: var(--color-armadura);
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    border: 1px solid #1e293b;
+}
+
+.casco-cresta {
+    position: absolute;
+    top: -7px;
+    left: 8px;
+    width: 12px;
+    height: 8px;
+    background-color: var(--color-peligro);
+    border-radius: 4px 4px 0 0;
+}
+
+.visera {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    width: 14px;
+    height: 4px;
+    background-color: #0f172a;
+    border-radius: 2px;
+}
+
+.torso {
+    position: absolute;
+    top: 28px;
+    left: 15px;
+    width: 30px;
+    height: 42px;
+    background-color: var(--color-armadura-oscura);
+    border-radius: 6px;
+    z-index: 2;
+}
+
+.peto {
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    width: 24px;
+    height: 32px;
+    background-color: var(--color-armadura);
+    border-radius: 4px;
+    border: 1px solid #1e293b;
+}
+
+.extremidad {
+    position: absolute;
+    background-color: var(--color-armadura);
+    border-radius: 4px;
+    border: 1px solid #1e293b;
+}
+
+.pierna {
+    width: 10px;
+    height: 38px;
+    top: 68px;
+    z-index: 1;
+}
+
+.pierna-izq { left: 17px; }
+.pierna-der { left: 33px; }
+
+.brazo {
+    width: 10px;
+    height: 34px;
+    top: 30px;
+    transform-origin: top center;
+}
+
+.brazo-izq {
+    left: 7px;
+    z-index: 1;
+    transform: rotate(10deg);
+}
+
+.brazo-der {
+    left: 43px;
+    z-index: 3;
+    transform: rotate(-15deg);
+}
+
+/* ============================================
+   ARMAS RENDERIZADAS EN LA RANURA DEL MUÑECO
+   ============================================ */
+
+.arma-slot {
+    position: absolute;
+    bottom: -4px;
+    left: 2px;
+    transform-origin: bottom center;
+}
+
+/* Espada */
+.arma-slot.espada {
+    width: 6px;
+    height: 48px;
+    background: linear-gradient(180deg, #f8fafc 0%, #cbd5e1 100%);
+    border: 1px solid #475569;
+    border-radius: 2px 2px 0 0;
+    transform: rotate(35deg);
+    box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);
+}
+
+.arma-slot.espada::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: -7px;
+    width: 20px;
+    height: 4px;
+    background-color: #d97706;
+    border-radius: 2px;
+}
+
+/* Hacha */
+.arma-slot.hacha {
+    width: 6px;
+    height: 52px;
+    background-color: #78350f;
+    border: 1px solid #451a03;
+    transform: rotate(30deg);
+}
+
+.arma-slot.hacha::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: -14px;
+    width: 20px;
+    height: 24px;
+    background-color: #94a3b8;
+    border: 1px solid #334155;
+    border-radius: 0 14px 14px 0;
+}
+
+/* Arco */
+.arma-slot.arco {
+    width: 18px;
+    height: 54px;
+    border: 4px solid #b45309;
+    border-left: none;
+    border-radius: 0 30px 30px 0;
+    background: transparent;
+    transform: rotate(15deg);
+}
+
+.arma-slot.arco::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 2px;
+    width: 1px;
+    height: 52px;
+    background-color: #e2e8f0;
+}
+
+/* Daga */
+.arma-slot.daga {
+    width: 5px;
+    height: 24px;
+    background: linear-gradient(180deg, #94a3b8 0%, #475569 100%);
+    border-radius: 2px 2px 0 0;
+    transform: rotate(45deg);
+}
+
+/* Desarmado */
+.arma-slot.sin-arma {
+    width: 8px;
+    height: 8px;
+    background-color: #f6d8ae;
+    border-radius: 50%;
+    transform: translateY(2px);
+}
+
+/* ============================================
+   ANIMACIONES DE ESTADO
+   ============================================ */
+
+/* Movimiento continuo de respiración */
+.personaje-grafico {
+    animation: animacion-respiro 2.4s infinite ease-in-out;
+}
+
+@keyframes animacion-respiro {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Animación de Caminar */
+.personaje-grafico.caminando .pierna-izq {
+    animation: paso-izq 0.25s infinite alternate ease-in-out;
+}
+
+.personaje-grafico.caminando .pierna-der {
+    animation: paso-der 0.25s infinite alternate ease-in-out;
+}
+
+@keyframes paso-izq {
+    0% { transform: rotate(-25deg); }
+    100% { transform: rotate(25deg); }
+}
+
+@keyframes paso-der {
+    0% { transform: rotate(25deg); }
+    100% { transform: rotate(-25deg); }
+}
+
+/* Animación de Ataque */
+.personaje-grafico.atacando .brazo-der {
+    animation: golpe-arma 0.35s ease-out;
+}
+
+@keyframes golpe-arma {
+    0% { transform: rotate(-15deg); }
+    40% { transform: rotate(-75deg); }
+    70% { transform: rotate(45deg); }
+    100% { transform: rotate(-15deg); }
+}
+
+/* Animación de Daño Recibido */
+.personaje-grafico.herido {
+    animation: sacudida-dano 0.4s ease;
+}
+
+@keyframes sacudida-dano {
+    0% { filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.9)); transform: translateX(0); }
+    20% { transform: translateX(-8px) rotate(-4deg); }
+    40% { transform: translateX(6px) rotate(3deg); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(2px); }
+    100% { filter: none; transform: translateX(0); }
+}
+
+/* ============================================
+   CONTROLES Y PANELES
+   ============================================ */
+
+.barra-movimiento {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background-color: var(--color-superficie);
+    border-top: 1px solid var(--color-borde);
+}
+
+.panel-juego {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .panel-juego {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tarjeta-personaje,
+.panel-armeria,
+.panel-log {
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--borde-radio);
+    padding: 1.5rem;
+}
+
+.tarjeta-personaje h2,
+.panel-armeria h2,
+.panel-log h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-borde);
+    padding-bottom: 0.5rem;
+}
+
+.medidor-vida {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+progress {
+    width: 100%;
+    height: 1.25rem;
+    border-radius: var(--borde-radio);
+    overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #334155;
+}
+
+progress::-webkit-progress-value {
+    background-color: #22c55e;
+    transition: width 0.3s ease;
+}
+
+.ranura-arma {
+    background-color: var(--color-fondo);
+    border: 1px dashed var(--color-borde);
+    border-radius: var(--borde-radio);
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.texto-destacado {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-resaltado);
+}
+
+.texto-secundario {
+    font-size: 0.875rem;
+    color: var(--color-texto-muted);
+}
+
+.descripcion-concepto {
+    font-size: 0.85rem;
+    color: var(--color-texto-muted);
+    margin-bottom: 1rem;
+}
+
+.acciones-personaje {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.grilla-armas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tarjeta-item-arma {
+    background-color: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--borde-radio);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tarjeta-item-arma.equipada {
+    border-color: var(--color-resaltado);
+    background-color: rgba(251, 191, 36, 0.05);
+}
+
+.btn {
+    appearance: none;
+    border: none;
+    border-radius: var(--borde-radio);
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 0.2s ease;
+}
+
+.btn-accion {
+    background-color: var(--color-primario);
+    color: var(--color-texto);
+}
+
+.btn-accion:hover {
+    background-color: var(--color-primario-hover);
+}
+
+.btn-peligro {
+    background-color: var(--color-peligro);
+    color: var(--color-texto);
+}
+
+.btn-peligro:hover {
+    background-color: var(--color-peligro-hover);
+}
+
+.btn-secundario {
+    background-color: var(--color-superficie-hover);
+    color: var(--color-texto);
+}
+
+.btn-secundario:hover {
+    background-color: var(--color-borde);
+}
+
+.caja-log {
+    background-color: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--borde-radio);
+    padding: 0.75rem;
+    height: 140px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.linea-log {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.2rem;
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guerrero: Agregación con Animaciones y Gráficos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <main class="contenedor-principal">
+        <header>
+            <h1>Agregación en POO: Entidad Guerrero y Armas Gráficas</h1>
+        </header>
+
+        <!-- Escenario Visual -->
+        <section class="zona-escenario">
+            <div class="indicador-entorno">Arena de Prueba</div>
+            <div id="escenario" class="escenario">
+                <!-- Muñeco del Guerrero -->
+                <div id="guerrero-visual" class="personaje-grafico">
+                    <div class="cabeza">
+                        <div class="casco-cresta"></div>
+                        <div class="casco"></div>
+                        <div class="visera"></div>
+                    </div>
+                    <div class="torso">
+                        <div class="peto"></div>
+                    </div>
+                    <div class="extremidad pierna pierna-izq"></div>
+                    <div class="extremidad pierna pierna-der"></div>
+                    <div class="extremidad brazo brazo-izq"></div>
+                    <div class="extremidad brazo brazo-der">
+                        <!-- Ranura de Agregación: El arma externa se monta visualmente aquí -->
+                        <div id="contenedor-arma-visual" class="arma-slot sin-arma"></div>
+                    </div>
+                </div>
+                <div class="suelo"></div>
+            </div>
+
+            <!-- Controles de Desplazamiento Directo -->
+            <div class="barra-movimiento">
+                <button id="btn-mover-izq" class="btn btn-secundario">◀ Desplazar Izquierda</button>
+                <button id="btn-mover-der" class="btn btn-secundario">Desplazar Derecha ▶</button>
+            </div>
+        </section>
+
+        <!-- Tablero de Control y Atributos -->
+        <section class="panel-juego">
+            <article class="tarjeta-personaje">
+                <h2 id="personaje-nombre">Guerrero</h2>
+                
+                <div class="medidor-vida">
+                    <label for="barra-vida">Vida: <span id="texto-vida">100 / 100</span></label>
+                    <progress id="barra-vida" value="100" max="100"></progress>
+                </div>
+
+                <div class="ranura-arma">
+                    <h3>Arma Referenciada</h3>
+                    <p id="arma-nombre" class="texto-destacado">Desarmado</p>
+                    <p id="arma-danio" class="texto-secundario">Daño base: 5</p>
+                </div>
+
+                <div class="acciones-personaje">
+                    <button id="btn-atacar" class="btn btn-accion">Ejecutar Ataque</button>
+                    <button id="btn-recibir-danio" class="btn btn-peligro">Recibir 20 Daño</button>
+                    <button id="btn-desarmar" class="btn btn-secundario">Desarmar (Romper Referencia)</button>
+                </div>
+            </article>
+
+            <!-- Armería Externa (Independiente del Guerrero) -->
+            <aside class="panel-armeria">
+                <h2>Armería Disponible</h2>
+                <p class="descripcion-concepto">
+                    Al equipar un arma, el personaje apunta a la instancia externa. Al cambiarla, la anterior vuelve al arsenal intacta.
+                </p>
+                <div id="lista-armas" class="grilla-armas">
+                    <!-- Se inyecta dinámicamente con JavaScript -->
+                </div>
+            </aside>
+        </section>
+
+        <!-- Registro de Eventos -->
+        <section class="panel-log">
+            <h2>Registro de Acciones</h2>
+            <div id="registro" class="caja-log"></div>
+            <button id="btn-limpiar-log" class="btn btn-secundario">Limpiar Registro</button>
+        </section>
+    </main>
+
+</body>
+</html>
