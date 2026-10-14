@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demostración de Agregación: Guerrero y Armas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <main class="contenedor-principal">
+        <header>
+            <h1>Patrón de Agregación: Sistema de Armamento</h1>
+        </header>
+
+        <section class="panel-juego">
+            <!-- Entidad Guerrero -->
+            <article class="tarjeta-personaje">
+                <h2 id="personaje-nombre">Guerrero</h2>
+                
+                <div class="medidor-vida">
+                    <label for="barra-vida">Vida: <span id="texto-vida">100 / 100</span></label>
+                    <progress id="barra-vida" value="100" max="100"></progress>
+                </div>
+
+                <div class="ranura-arma">
+                    <h3>Arma Equipada</h3>
+                    <p id="arma-nombre" class="texto-destacado">Ninguna</p>
+                    <p id="arma-danio" class="texto-secundario">Daño base: 0</p>
+                </div>
+
+                <div class="acciones-personaje">
+                    <button id="btn-atacar" class="btn btn-accion">Atacar</button>
+                    <button id="btn-recibir-danio" class="btn btn-peligro">Recibir 20 Daño</button>
+                    <button id="btn-desarmar" class="btn btn-secundario">Desarmar</button>
+                </div>
+            </article>
+
+            <!-- Armería Externa (Independiente del Guerrero) -->
+            <aside class="panel-armeria">
+                <h2>Armería Disponible</h2>
+                <p class="descripcion-concepto">
+                    Las armas existen independientemente del guerrero. El personaje solo almacena una referencia externa a ellas (agregación).
+                </p>
+                <div id="lista-armas" class="grilla-armas">
+                    <!-- Los elementos se generan desde JS vinculando eventos -->
+                </div>
+            </aside>
+        </section>
+
+        <!-- Registro de Eventos -->
+        <section class="panel-log">
+            <h2>Registro de Acciones</h2>
+            <div id="registro" class="caja-log"></div>
+            <button id="btn-limpiar-log" class="btn btn-secundario">Limpiar Registro</button>
+        </section>
+    </main>
+
+</body>
+</html>
